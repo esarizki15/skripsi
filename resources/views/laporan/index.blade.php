@@ -44,7 +44,7 @@
                 <div class="box-body">
                  <p><a class="btn btn-primary" href="{{ url('laporan/create') }}">Tambah</a></p> 
                    <div class="table-responsive">
-                        <table id="example" class="table table-condensed table-striped">
+                        <table id="example" class="display nowrap">
                             <thead>
                                 <tr>
                                     <td>Pelapor</td>
@@ -61,13 +61,14 @@
                                 @forelse ($pengaduan as $log)
                                     <tr>
                                         
-                                        <td>
+                                        <td><a href="{{ route('laporan.show', $log->id) }}">
                                             {{ $log->users['name'] }}
                                             @foreach($log->keywords as $key)
                                                 @if($key->pengaduans->count() > 1)
                                                     <small>{{ "Duplikat" }}</small>
                                                 @endif
                                             @endforeach
+                                            </a>
                                         </td>
                                         <td>{{ $log->lokasis->nama }}</td>
                                         <td>{{ $log->pengaduan }}</td>

@@ -121,7 +121,11 @@ class LaporanController extends Controller
      */
     public function show($id)
     {
-        //
+        $pengaduan = Pengaduan::find($id);
+        /*$pengadu = $pengaduan->penanganans->pengajuans->find($id);
+        $penga = $pengadu->penyelesaians->find($id);
+        */return view('laporan.show', compact('pengaduan'));
+
     }
 
     /**

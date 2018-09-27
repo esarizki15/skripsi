@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pengajuan;
+use App\Penyelesaian;
 class PengajuanController extends Controller
 {
     /**
@@ -25,6 +26,18 @@ class PengajuanController extends Controller
     public function create()
     {
         //
+    }
+    
+    public function terima($pengajuans)
+    {
+        $pengajuan = Pengajuan::findOrFail($pengajuans);
+        return view('penyelesaian.create')->with(compact('pengajuan'));
+    }
+
+    public function tolak($pengajuans)
+    {
+        $pengajuan = Pengajuan::findOrFail($pengajuans);
+        return view('penyelesaian.tolak')->with(compact('pengajuan'));
     }
 
     /**

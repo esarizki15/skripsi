@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Penyelesaian;
 class PenyelesaianController extends Controller
 {
     /**
@@ -34,7 +34,34 @@ class PenyelesaianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'pengajuan_id' => 'required',
+            'deskripsi' => 'nullable',
+        ]);
+
+        $penyelesaian = Penyelesaian::create([
+            'pengajuan_id' => $request->pengajuan_id,
+            'status' => true,
+            'keterangan' => $request->keterangan
+        ]) ;
+
+        return redirect()->route('pengajuan.index');
+    }
+
+    public function stores(Request $request)
+    {
+        $this->validate($request, [
+            'pengajuan_id' => 'required',
+            'deskripsi' => 'nullable',
+        ]);
+
+        $penyelesaian = Penyelesaian::create([
+            'pengajuan_id' => $request->pengajuan_id,
+            'status' => false,
+            'keterangan' => $request->keterangan
+        ]) ;
+
+        return redirect()->route('pengajuan.index');
     }
 
     /**

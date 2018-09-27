@@ -19,6 +19,7 @@
 </script>
 
 <script src="{{ asset('js/selectize.min.js') }}" defer></script>
+<script src="{{ asset('js/stars.js') }}" defer></script>
 
 
 

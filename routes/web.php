@@ -38,6 +38,21 @@ Route::group(['middleware' => 'auth'], function () {
 		]);
 
 	Route::resource('pengajuan', 'PengajuanController');
+	Route::get('/pengajuans/{pengajuans}/terima',[
+			'as' => 'pengajuan.terima',
+			'uses' => 'PengajuanController@terima'
+		]);
+
+	Route::get('/pengajuans/{pengajuans}/tolak',[
+			'as' => 'pengajuan.tolak',
+			'uses' => 'PengajuanController@tolak'
+		]);
+
+	Route::resource('penyelesaian', 'PenyelesaianController');
+	Route::post('/penyelesaians/stores',[
+			'as' => 'penyelesaian.stores',
+			'uses' => 'PenyelesaianController@stores'
+		]);
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes
 });

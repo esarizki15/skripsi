@@ -32,7 +32,6 @@
                                     <td>Pelapor</td>
                                     <td>Deskripsi</td>
                                     <td>Foto</td>
-                                    <td>Deskripsi</td>
                                     <td>Action</td>
                                 </tr>
                             </thead>
@@ -40,6 +39,21 @@
                                 @forelse ($pengajuan as $log)
                                 <tr>
                                     <td>{{ $log->penanganans->users['name'] }}</td>
+                                    <td>{{ $log->penanganans->pengaduans->users['name'] }}</td>
+                                    <td>{{ $log->deskripsi }}</td>
+                                    @if (isset($log) && $log->foto)
+                                        <td><img class="img-rounded img-responsive" style="width: 5rem; height: 5rem" src="{!!asset('img/'.$log->foto)!!}"></td>
+                                        @else
+                                        <td>Foto belum di upload</td>
+                                        @endif
+                                    <td><a class="btn btn-primary btn-xs" href="{{ route('pengajuan.terima', $log->id) }}">Terima</a> |
+                                        <a class="btn btn-primary btn-xs" href="{{ route('pengajuan.tolak', $log->id) }}">Tolak</a>  
+                                    </td>
+                                        @if(isset($pengajuan))
+                                        <td>ada</td>
+                                        @else
+                                        <td>ga ada</td>
+                                        @endif
                                     
                                 </tr>
                                 @empty
