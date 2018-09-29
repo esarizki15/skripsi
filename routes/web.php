@@ -16,20 +16,17 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    //    Route::get('/link1', function ()    {
-//        // Uses Auth Middleware
-//    });
 	Route::resource('perusahaan', 'PerusahaanController');
 	Route::resource('area', 'AreaController');
 	Route::resource('lokasi', 'LokasiController');
-	Route::get('/lokasis/{id}/generate/',[
-			'as' => 'lokasi.generate',
-			'uses' => 'LokasiController@generate'
-		]);
 	Route::resource('laporan', 'LaporanController');
 	Route::get('/laporans/{laporans}/tangani',[
 			'as' => 'laporan.tangani',
 			'uses' => 'LaporanController@tangani'
+		]);
+	Route::get('/lokasi/{id}/qrcode',[
+			'as' => 'lokasi.qrcode',
+			'uses' => 'QRCodeController@lokasi'
 		]);
 	Route::resource('penanganan', 'PenangananController');
 	Route::get('/penanganans/{penanganans}/ajukan',[

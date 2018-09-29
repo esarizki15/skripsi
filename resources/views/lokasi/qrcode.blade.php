@@ -1,0 +1,1 @@
+<img src="{{ QRCode::text('QR Code Generator for Laravel!')->png() }}" alt="">

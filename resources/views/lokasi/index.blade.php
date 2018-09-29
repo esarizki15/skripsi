@@ -37,9 +37,10 @@
                                         <td>{{ $log->nama }}</td>
                                         <td>
                                             <a class="btn btn-primary btn-sm" href="{{ route('lokasi.edit', $log->id) }}">Edit</a>
-                                            <a class="btn btn-primary btn-sm" href="{{ route('lokasi.generate', $log->id) }}">Generate</a>
+                                            <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="{{ '#' . $log->id . '-modal' }}">Generate</a>
                                         </td>
                                     </tr>
+                                    @include('partials.qrcode', ['object' => $log])
                                 @empty
                                     <tr>
                                         <td colspan="2">Tidak ada data</td>

@@ -131,13 +131,6 @@ class LokasiController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function generate($id){
-        $uri = route('laporan.create') . "?lokasi=" . $id;
-        $qr = QRCode::text($uri);
-        $filename = 'lokasi/'.$id.'-qr.svg';
-        return $qr->svg(); 
-    }
-
     public function show($id)
     {
         //
