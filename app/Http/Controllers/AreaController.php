@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Area;
+use App\Tempat;
+use App\Perusahaan;
 class AreaController extends Controller
 {
     /**
@@ -14,7 +16,7 @@ class AreaController extends Controller
     public function index()
     {
 
-        $area = Area::paginate(10);
+        $area = Tempat::all()->where('tempat_id','=', null);
         return view('area.index')->with(compact('area'));
     }
 
@@ -42,7 +44,7 @@ class AreaController extends Controller
         ]);
 
 
-        $area = Area::create([
+        $area = Tempat::create([
             'perusahaan_id' => $request->perusahaan,
             'nama' => $request->nama,
         ]) ;

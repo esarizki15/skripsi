@@ -30,10 +30,8 @@
                             <tbody>
                                 @forelse ($lokasi as $log)
                                     <tr>   
-                                        <td>
-                                            {{ $log->areas->perusahaans->nama }}
-                                        </td>
-                                        <td>{{ $log->areas->nama }}</td>
+                                        <td>{{ $log->parent->perusahaan->nama }}</td>
+                                        <td> {{ $log->parent->nama }} </td>
                                         <td>{{ $log->nama }}</td>
                                         <td>
                                             <a class="btn btn-primary btn-sm" href="{{ route('lokasi.edit', $log->id) }}">Edit</a>
@@ -56,7 +54,6 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        {{ $lokasi->links() }}
                     </div>
                 </div>
             </div>

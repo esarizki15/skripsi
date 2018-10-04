@@ -30,7 +30,7 @@
                                 @forelse ($area as $log)
                                     <tr>   
                                         <td>
-                                            {{ $log->perusahaans->nama }}
+                                            {{ $log->perusahaan->nama }}
                                         </td>
                                         <td>{{ $log->nama }}</td>
                                         <td><a class="btn btn-primary" href="{{ route('area.edit', $log->id) }}">Edit</a></td>
@@ -49,7 +49,6 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        {{ $area->links() }}
                     </div>
                 </div>
             </div>

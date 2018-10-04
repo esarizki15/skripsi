@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Lokasi;
 use Storage;
 use QRCode;
+use App\Tempat;
 class LokasiController extends Controller
 {
     /** 
@@ -58,7 +59,7 @@ class LokasiController extends Controller
                                         <td colspan="2">Tidak ada data</td>
                                     </tr>
                                 @endforelse*/
-        $lokasi = Lokasi::paginate(10);
+        $lokasi = Tempat::all()->where('tempat_id','!=', null);
         return view('lokasi.index')->with(compact('lokasi'));
     }
 
@@ -109,16 +110,14 @@ class LokasiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'area' => 'required|exists:areas,id',
+            'area' => 'required|exists:tempats,id',
             'nama' => 'required',
-            'detail' => 'required',
         ]);
 
 
-        $lokasi = Lokasi::create([
-            'area_id' => $request->area,
+        $lokasi = Tempat::create([
+            'tempat_id' => $request->area,
             'nama' => $request->nama,
-            'detail' => $request->detail,
         ]) ;
 
         return redirect()->route('lokasi.index');

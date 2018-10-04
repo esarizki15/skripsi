@@ -13,7 +13,8 @@
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
-        responsive: true
+        responsive: true,
+        "pagingType": "full_numbers",
     });
 } );
 </script>

@@ -9,7 +9,7 @@
 <div class="form-group{{ $errors->has('jabatan') ? ' has-error' : '' }} row">
 	{!! Form::label('jabatan', 'Jabatan', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::select('jabatan', ['direktur' => 'Direktur', 'manager' => 'Manager', 'supervisor' => 'Supervisor', 'staff' => 'Staff', 'karyawan' => 'Karyawan'], null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Jabatan']) !!}
+		{!! Form::select('jabatan', [''=>'']+App\Jabatan::pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Jabatan']) !!}
 		{!! $errors->first('jabatan', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>

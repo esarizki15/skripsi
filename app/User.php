@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Penanganan');
     }
+
+    public function jabatan()
+    {
+        return $this->belongsTo('App\Jabatan', 'jabatan_id');
+    }
 }

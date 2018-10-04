@@ -11,4 +11,9 @@ class Perusahaan extends Model
     {
         return $this->hasMany('App\Area');
     }
+
+    public function tempats()
+    {
+        return $this->hasMany('App\Tempat');
+    }
 }
