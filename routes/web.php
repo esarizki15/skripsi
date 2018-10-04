@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('perusahaan', 'PerusahaanController');
 	Route::resource('area', 'AreaController');
 	Route::resource('lokasi', 'LokasiController');
+	Route::resource('member', 'MembersController');
 	Route::resource('laporan', 'LaporanController');
 	Route::get('/laporans/{laporans}/tangani',[
 			'as' => 'laporan.tangani',
