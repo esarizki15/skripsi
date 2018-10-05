@@ -18,6 +18,10 @@ class CreateJabatansTable extends Migration
             $table->string('nama');
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('jabatan_id')->references('id')->on('jabatans');
+        });
     }
 
     /**
