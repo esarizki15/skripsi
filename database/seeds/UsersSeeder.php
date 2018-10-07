@@ -5,6 +5,8 @@ use App\User;
 use App\Jabatan;
 use App\Role;
 use App\RoleUser;
+use App\Perusahaan;
+use App\Tempat;
 class UsersSeeder extends Seeder
 {
     /**
@@ -14,6 +16,33 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
+        $perusahaan = Perusahaan::create([
+            'nama'=>'PT. Bimasakti Karyaprima TNG',
+            'provinsi'=>'Banten',
+            'kota'=>'Tangerang',
+            'kecamatan'=>'Jatake',
+            'detail'=>'Jl Raya Industri I Kawasan Industri Jatake Bl D/8-A'
+        ]);
+        $area = Tempat::create([
+            'nama'=>'Kantor',
+            'perusahaan_id'=>$perusahaan->id
+        ]);
+
+        $lokasi = Tempat::create([
+            'nama'=>'Kantor A',
+            'tempat_id'=>$area->id
+        ]);
+
+        $area1 = Tempat::create([
+            'nama'=>'Gudang',
+            'perusahaan_id'=>$perusahaan->id
+        ]);
+
+        $lokasi1 = Tempat::create([
+            'nama'=>'Gudang A',
+            'tempat_id'=>$area1->id
+        ]);
+
         $jabatan = Jabatan::create([
             'nama'=>'Direktur'
         ]);
@@ -74,17 +103,26 @@ class UsersSeeder extends Seeder
 
         $roleuser = RoleUser::create([
             'user_id'=>$user->id,
-            'role_id'=>$role1->id
+            'role_id'=>$role1->id,
+            'tempat_id' => $area->id
         ]);
 
         $roleuser = RoleUser::create([
             'user_id'=>$user1->id,
-            'role_id'=>$role2->id
+            'role_id'=>$role2->id,
+            'tempat_id'=> $lokasi->id,
         ]);
 
         $roleuser = RoleUser::create([
             'user_id'=>$user1->id,
-            'role_id'=>$role3->id
+            'role_id'=>$role3->id,
+            'tempat_id'=>$lokasi->id
+        ]);
+
+        $roleuser = RoleUser::create([
+            'user_id'=>$user2->id,
+            'role_id'=>$role5->id,
+            'tempat_id'=>$lokasi1->id
         ]);
     }
 }

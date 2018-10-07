@@ -26,4 +26,9 @@ class Tempat extends Model
 	{
 		return $this->belongsTo('App\Perusahaan', 'perusahaan_id');
 	}
+
+	public function roles()
+	{
+		return $this->hasMany('App\RoleUser');
+	}
 }
