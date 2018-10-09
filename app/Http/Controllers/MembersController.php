@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Tempat;
+use App\User;
 class MembersController extends Controller
 {
     /**
@@ -13,7 +14,10 @@ class MembersController extends Controller
      */
     public function index()
     {
-        return view('members.index');
+        $user = User::pluck('name', 'id')->all();
+        //$use = $user->all();
+        //dd($use);
+        return view('members.index')->with(compact('user'));
     }
 
     /**
@@ -23,6 +27,8 @@ class MembersController extends Controller
      */
     public function create()
     {
+        $lokasi = Tempat::whereNull('tempat_id')->pluck('nama', 'id')->all();
+        //dd($lokasi);
         return view('members.create');
     }
 

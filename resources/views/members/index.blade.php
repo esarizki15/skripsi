@@ -16,7 +16,34 @@
 					
 					<div class="panel-body">
 						<p><a class="btn btn-primary" href="{{ route('member.create') }}">Tambah</a></p>
-						
+						<div class="table-responsive">
+                        <table id="example" class="display responsive nowrap compact" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ()
+                                    <tr>   
+                                        <td></td>
+                                        <td>
+                                            
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2">Tidak ada data</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Nama</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
 					</div>
 				</div>
 			</div>

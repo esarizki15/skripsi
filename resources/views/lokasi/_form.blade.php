@@ -1,7 +1,7 @@
 <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }} row">
 	{!! Form::label('area', 'Pilih Area', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-sm-6"> 
-		{!! Form::select('area', [''=>'']+App\Tempat::pluck('nama','id')->all(),  null, ['class'=>'form-control, js-selectize ','placeholder' => 'Pilih Area']) !!}
+		{!! Form::select('area', [''=>'']+App\Tempat::whereNull('tempat_id')->pluck('nama','id')->all(),  null, ['class'=>'form-control, js-selectize ','placeholder' => 'Pilih Area']) !!}
 		{!! $errors->first('area', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>

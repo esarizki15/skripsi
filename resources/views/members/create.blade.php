@@ -26,3 +26,33 @@
 		</div>
 	</div>
 @endsection
+@section('script')
+<script type="text/javascript">
+$(document).ready(function() {
+
+});	
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+      $( "#role" ).change(function () {
+	    var str = "";
+	    $( "#role option:selected" ).each(function() {
+	      str += $( this ).text();
+	    });
+	    if (str == "Pengawas 5R") {
+	    	
+	    $("#area").removeClass("hidden").fadeIn();
+	    }else{
+	    	$("#area").hide();
+	    }
+	    if (str == "Petugas 5R") {
+	    	
+	    $("#lokasi").removeClass("hidden").fadeIn();
+	    }else {
+	    	$("#lokasi").hide();
+	    }
+	  })
+	  .change();
+});
+</script>
+@endsection
