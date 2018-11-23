@@ -1,12 +1,12 @@
-@extends('adminlte::layouts.app')
+@extends('vendor.backpack.base.layout')
 
-@section('main-content')
-	<div class="container">
-		<div class="row">
+@section('content')
+<div class="container-fluid spark-screen">
+		<div class="row justify-content-center">
 			<div class="col-md-8 col-md-offset-2">
 				<ul class="breadcrumb">
 					<li><a href="{{ url('/home') }}">Dashboard</a></li>
-					<li><a href="{{ url('/admin/members') }}">Member</a></li>
+					<li><a href="{{ route('member.index') }}">Member</a></li>
 					<li class="active">Tambah Member</li>
 				</ul>
 					
@@ -26,33 +26,46 @@
 		</div>
 	</div>
 @endsection
-@section('script')
+@section('before_scripts')
+
+<script type="text/javascript">
+
+</script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 
-});	
-</script>
-<script type="text/javascript">
-$(document).ready(function() {
       $( "#role" ).change(function () {
-	    var str = "";
+
+	    var str = [];
 	    $( "#role option:selected" ).each(function() {
 	      str += $( this ).text();
-	    });
-	    if (str == "Pengawas 5R") {
-	    	
-	    $("#area").removeClass("hidden").fadeIn();
-	    }else{
-	    	$("#area").hide();
-	    }
-	    if (str == "Petugas 5R") {
+
+	      if (str.includes("Petugas 5R")) {
 	    	
 	    $("#lokasi").removeClass("hidden").fadeIn();
 	    }else {
 	    	$("#lokasi").hide();
 	    }
+
+
+	    if (str.includes("Pengawas 5R")) {
+	    	
+	    $("#area").removeClass("hidden").fadeIn();
+	    }else{
+	    	$("#area").hide();
+	    }
+
+	      console.log(str)
+	    });
+
+	    
 	  })
 	  .change();
+
+
+
+
 });
 </script>
 @endsection

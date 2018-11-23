@@ -18,6 +18,11 @@ class Pengaduan extends Model
 		return $this->belongsTo('App\Lokasi', 'lokasi_id');
 	}
 
+	public function tempats()
+	{
+		return $this->belongsTo('App\Tempat', 'lokasi_id');
+	}
+	
 	public function penanganans()
 	{
 		return $this->hasOne('App\Penanganan');

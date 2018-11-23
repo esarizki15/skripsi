@@ -28,6 +28,10 @@ class CreateTempatsTable extends Migration
             $table->unsignedInteger('tempat_id')->nullable();
             $table->foreign('tempat_id')->references('id')->on('tempats');
         });
+
+        Schema::table('pengaduans', function (Blueprint $table) {
+            $table->foreign('lokasi_id')->references('id')->on('tempats');
+        });
     }
 
     /**

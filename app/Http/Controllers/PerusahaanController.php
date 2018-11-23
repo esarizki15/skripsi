@@ -51,6 +51,7 @@ class PerusahaanController extends Controller
             'detail' => $request->detail,
         ]) ;
 
+
         return redirect()->route('perusahaan.index');
     }
 

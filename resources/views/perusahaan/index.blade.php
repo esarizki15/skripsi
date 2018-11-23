@@ -1,10 +1,6 @@
-@extends('adminlte::layouts.app')
-
-@section('htmlheader_title')
-    {{ trans('adminlte_lang::message.home') }}
-@endsection
-
-@section('main-content')
+@extends('vendor.backpack.base.layout')
+ 
+@section('content')
 <div class="container-fluid spark-screen">
     <div class="row justify-content-center">
         <div class="col-md-10 col-md-offset-1">
@@ -69,4 +65,19 @@
     </div>
 </div>
 @endsection
-
+@section('before_scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+    Push.create("Hello world!", {
+    body: "How's it hangin'?",
+    icon: '/icon.png',
+    timeout: 4000,
+    onClick: function () {
+        window.focus();
+        this.close();
+    }
+});
+});
+    
+</script>
+@endsection

@@ -13,5 +13,8 @@ protected $fillable = ['nama'];
     	return $this->belongsToMany('App\User');
     }
 
-    
+	public function tempats()
+    {
+    	return $this->belongsToMany('App\Tempat');
+    }    
 }

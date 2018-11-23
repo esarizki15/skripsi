@@ -1,7 +1,6 @@
-@extends('adminlte::layouts.app')
+@extends('vendor.backpack.base.layout')
 
-
-@section('main-content')
+@section('content')
 <div class="container-fluid spark-screen">
     <div class="row justify-content-center">
         <div class="col-md-10 col-md-offset-1">

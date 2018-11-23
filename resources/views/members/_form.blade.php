@@ -9,7 +9,7 @@
 <div class="form-group{{ $errors->has('jabatan') ? ' has-error' : '' }} row">
 	{!! Form::label('jabatan', 'Jabatan', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::select('jabatan', [''=>'']+App\Jabatan::pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Jabatan']) !!}
+		{!! Form::text('jabatan', null, ['class'=>'form-control']) !!}
 		{!! $errors->first('jabatan', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
@@ -22,13 +22,16 @@
 	</div>
 </div>
 
-<div id="role" class="form-group{{ $errors->has('role') ? ' has-error' : '' }} row">
+<div class="form-group{{ $errors->has('role') ? ' has-error' : '' }} row">
 	{!! Form::label('role', 'Role', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::select('role', ['admin' => 'Admin', 'pimpinan_5R' => 'Pimpinan 5R', 'pengawas_5R' => 'Pengawas 5R', 'petugas_5R' => 'Petugas 5R', 'karyawan' => 'Karyawan'], null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Role']) !!}
+		{!! Form::select('role[]', [''=>'']+App\Role::pluck('nama','id')->all(), null,['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Role', 'multiple'=>'multiple', 'id'=>'role']) !!}
 		{!! $errors->first('role', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
+
+
+
 
 <div id="lokasi" class="hidden form-group{{ $errors->has('lokasi') ? ' has-error' : '' }} row">
 	{!! Form::label('lokasi', 'Tanggung Jawab Lokasi', ['class'=>'col-sm-4 control-label']) !!}
@@ -47,11 +50,11 @@
 </div>
 
 
-<div class="form-group{{ $errors->has('nik') ? ' has-error' : '' }}">
-	{!! Form::label('nik', 'NIK', ['class'=>'col-md-4 control-label']) !!}
+<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+	{!! Form::label('email', 'e-mail', ['class'=>'col-md-4 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::text('nik', null, ['class'=>'form-control']) !!}
-		{!! $errors->first('nik', '<p class="help-block">:message</p>') !!}
+		{!! Form::email('email', null, ['class'=>'form-control']) !!}
+		{!! $errors->first('email', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 

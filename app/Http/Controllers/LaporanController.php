@@ -8,7 +8,7 @@ use App\Keyword;
 use App\Lokasi;
 use App\Penanganan;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
 class LaporanController extends Controller
 {
     /**
@@ -18,7 +18,7 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        $pengaduan = Pengaduan::with('users')->get();
+        $pengaduan = Pengaduan::all();
         return view('laporan.index')->with(compact('pengaduan'));
     }
 
@@ -59,7 +59,7 @@ class LaporanController extends Controller
             'deskripsi' => $request->deskripsi
         ])) ;
 
-            $str = (string)$request->deskripsi;
+           /* $str = (string)$request->deskripsi;
             $low = strtolower($str);
             $exp = explode(" ", $low);
             for ($i=0; $i < count($exp) ; $i++) { 
@@ -75,7 +75,7 @@ class LaporanController extends Controller
                 
                 }
             }
-    
+    */
             // isi field cover jika ada cover yang diupload
             if ($request->hasFile('foto')) {
 

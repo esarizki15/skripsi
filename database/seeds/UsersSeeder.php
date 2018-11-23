@@ -42,7 +42,7 @@ class UsersSeeder extends Seeder
             'nama'=>'Gudang A',
             'tempat_id'=>$area1->id
         ]);
-
+/*
         $jabatan = Jabatan::create([
             'nama'=>'Direktur'
         ]);
@@ -62,7 +62,7 @@ class UsersSeeder extends Seeder
         $jabatan4 = Jabatan::create([
             'nama'=>'Karyawan'
         ]);
-
+*/
         $role1 = Role::create([
             'nama'=>'Admin'
         ]);
@@ -72,6 +72,9 @@ class UsersSeeder extends Seeder
         $role3 = Role::create([
             'nama'=>'Pengawas 5R'
         ]);
+        $role3->tempats()->attach(Tempat::find(rand(1,2)));
+        $role3->tempats()->attach(Tempat::find(rand(3,4)));
+
         $role4 = Role::create([
             'nama'=>'Petugas 5R'
         ]);
@@ -84,45 +87,41 @@ class UsersSeeder extends Seeder
         $user->name = 'Admin Larapus';
         $user->email = 'admin@gmail.com';
         $user->password = bcrypt('rahasia');
-        $user->jabatan_id = $jabatan3->id;
+        $user->jabatan = 'Direktur';
         $user->save();
 
         $user1 = new User();
         $user1->name = 'Esa';
         $user1->email = 'esa@gmail.com';
         $user1->password = bcrypt('rahasia');
-        $user1->jabatan_id = $jabatan4->id;
+        $user1->jabatan = 'Manager' ;
         $user1->save();
 
         $user2 = new User();
         $user2->name = 'Rizki';
         $user2->email = 'rizki@gmail.com';
         $user2->password = bcrypt('rahasia');
-        $user2->jabatan_id = $jabatan1->id;
+        $user2->jabatan = 'Karyawan' ;
         $user2->save();
 
         $roleuser = RoleUser::create([
             'user_id'=>$user->id,
-            'role_id'=>$role1->id,
-            'tempat_id' => $area->id
+            'role_id'=>$role1->id
         ]);
 
         $roleuser = RoleUser::create([
             'user_id'=>$user1->id,
-            'role_id'=>$role2->id,
-            'tempat_id'=> $lokasi->id,
+            'role_id'=>$role2->id
         ]);
 
         $roleuser = RoleUser::create([
             'user_id'=>$user1->id,
-            'role_id'=>$role3->id,
-            'tempat_id'=>$lokasi->id
+            'role_id'=>$role3->id
         ]);
 
         $roleuser = RoleUser::create([
             'user_id'=>$user2->id,
-            'role_id'=>$role5->id,
-            'tempat_id'=>$lokasi1->id
+            'role_id'=>$role5->id
         ]);
     }
 }

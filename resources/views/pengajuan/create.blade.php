@@ -1,7 +1,6 @@
-@extends('adminlte::layouts.app')
+@extends('vendor.backpack.base.layout')
 
-
-@section('main-content')
+@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 col-md-offset-2">

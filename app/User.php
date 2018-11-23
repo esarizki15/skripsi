@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 class User extends Authenticatable
 {
-    use HasPushSubscriptions;
+    use Notifiable, HasPushSubscriptions;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'hp', 'jabatan_id'
+        'name', 'email', 'password', 'hp', 'jabatan'
     ];
 
     /**
@@ -44,5 +44,20 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany('App\Role');
+    }
+
+    public function formattedRoles()
+    {
+        $batas = $this->roles->count();
+        $status = 0;
+        $str = '';
+        foreach ($this->roles as $role) {
+            $status++;
+            $str = $str . $role->nama;
+            if ($batas != $status) {
+                $str = $str . ", ";
+            }
+        }
+        return $str;
     }
 }

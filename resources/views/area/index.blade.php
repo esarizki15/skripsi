@@ -1,8 +1,7 @@
-@extends('adminlte::layouts.app')
+@extends('vendor.backpack.base.layout')
 
-
-@section('main-content')
-<div class="container">
+@section('content')
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-10 col-md-offset-1">
             <nav aria-label="breadcrumb">

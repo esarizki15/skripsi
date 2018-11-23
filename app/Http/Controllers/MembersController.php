@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tempat;
+use App\RoleUser;
 use App\User;
+use App\Role;
+use DB;
 class MembersController extends Controller
 {
     /**
@@ -14,9 +17,16 @@ class MembersController extends Controller
      */
     public function index()
     {
-        $user = User::pluck('name', 'id')->all();
+        $user = User::all();
         //$use = $user->all();
         //dd($use);
+        /*$user = DB::table('role_users')
+                ->select('user_id', DB::raw('Count(tempat_id) as tempats'))
+                ->groupBy('user_id')
+                ->havingRaw('Count(tempat_id) > ?', [1])
+                ->get();
+        */
+        //dd($user);
         return view('members.index')->with(compact('user'));
     }
 
@@ -40,7 +50,27 @@ class MembersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|unique:users',
+            'jabatan' => 'required',
+            'role'=>'required',
+            'email' => 'required|unique:users',
+            'password'=>'required'
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password'=> $request->password,
+            'hp'=> $request->phone,
+            'jabatan'=> $request->jabatan,
+        ]) ;
+
+        for ($i=0; $i < count($request->role); $i++) { 
+            $user->roles()->attach(Role::find($request->role[$i]));
+        }
+
+        return redirect()->route('member.index');
     }
 
     /**

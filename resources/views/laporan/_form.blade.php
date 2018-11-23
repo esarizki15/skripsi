@@ -1,23 +1,17 @@
 @if (isset($lokasi))
 	<div class="form-group{{ $errors->has('lokasi') ? ' has-error' : '' }} row">
 		{!! Form::label('lokasi', 'Nama Lokasi', ['class'=>'col-sm-4 control-label']) !!}
-		<div class="col-md-5"> 
+		<div class="col-md-6"> 
 			<input type="text" value="{{ $lokasi->nama }}" disabled="" class="form-control">
 			<input type="hidden" name="lokasi" value="{{ $lokasi->nama }}">
-		</div>
-		<div class="col-md-1"> 
-			<a class="fa fa-camera fa-2x"></a>
 		</div>
 	</div>
 @else
 	<div class="form-group{{ $errors->has('lokasi') ? ' has-error' : '' }} row">
 		{!! Form::label('lokasi', 'Nama Lokasi', ['class'=>'col-sm-4 control-label']) !!}
-		<div class="col-md-5"> 
-			{!! Form::select('lokasi', [''=>'']+App\Lokasi::pluck('nama','id')->all(),  null, ['class'=>'form-control, js-selectize ','placeholder' => 'Pilih Lokasi']) !!}
+		<div class="col-md-6"> 
+			{!! Form::select('lokasi', [''=>'']+App\Tempat::where('tempat_id', '!=', null)->pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Lokasi']) !!}
 			{!! $errors->first('lokasi', '<p class="help-block">:message</p>') !!}
-		</div>
-		<div class="col-md-1"> 
-			<a class="fa fa-camera fa-2x"></a>
 		</div>
 	</div>
 @endif

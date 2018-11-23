@@ -1,8 +1,7 @@
-@extends('adminlte::layouts.app')
+@extends('vendor.backpack.base.layout')
 
-
-@section('main-content')
-<div class="container">
+@section('content')
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-10 col-md-offset-1">
             <nav aria-label="breadcrumb">
@@ -70,7 +69,7 @@
                                             @endforeach
                                             </a>
                                         </td>
-                                        <td>{{ $log->lokasis->nama }}</td>
+                                        <td>{{ $log->tempats->nama }}</td>
                                         <td>{{ $log->pengaduan }}</td>
                                         @if (isset($log) && $log->foto)
                                         <td><img class="img-rounded img-responsive" style="width: 5rem; height: 5rem" src="{!!asset('img/'.$log->foto)!!}"></td>
