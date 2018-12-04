@@ -36,7 +36,7 @@
 <div id="lokasi" class="hidden form-group{{ $errors->has('lokasi') ? ' has-error' : '' }} row">
 	{!! Form::label('lokasi', 'Tanggung Jawab Lokasi', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::select('lokasi', [''=>'']+App\Tempat::where('tempat_id', '!=', null)->pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Lokasi']) !!}
+		{!! Form::select('lokasi[]', [''=>'']+App\Tempat::where('tempat_id', '!=', null)->pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Lokasi']) !!}
 		{!! $errors->first('lokasi', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
@@ -44,7 +44,7 @@
 <div id="area" class="hidden form-group{{ $errors->has('area') ? ' has-error' : '' }} row">
 	{!! Form::label('area', 'Tanggung Jawab Area', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::select('area', [''=>'']+App\Tempat::whereNull('tempat_id')->pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Area']) !!}
+		{!! Form::select('area[]', [''=>'']+App\Tempat::whereNull('tempat_id')->pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Area']) !!}
 		{!! $errors->first('area', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>

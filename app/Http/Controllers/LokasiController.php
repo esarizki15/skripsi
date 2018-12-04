@@ -7,6 +7,7 @@ use App\Lokasi;
 use Storage;
 use QRCode;
 use App\Tempat;
+use Session;
 class LokasiController extends Controller
 {
     /** 
@@ -110,15 +111,20 @@ class LokasiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'area' => 'required|exists:tempats,id',
+            'tempat_id' => 'required|exists:tempats,id',
             'nama' => 'required',
         ]);
 
 
         $lokasi = Tempat::create([
-            'tempat_id' => $request->area,
+            'tempat_id' => $request->tempat_id,
             'nama' => $request->nama,
         ]) ;
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $lokasi->nama"
+        ]);
 
         return redirect()->route('lokasi.index');
     }
@@ -143,7 +149,8 @@ class LokasiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lokasi = Tempat::find($id);
+        return view('lokasi.edit')->with(compact('lokasi'));
     }
 
     /**
@@ -155,7 +162,20 @@ class LokasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'tempat_id' => 'required|exists:tempats,id',
+            'nama' => 'required|unique:areas',
+        ]);
+
+
+        $lokasi = Tempat::find($id);
+        $lokasi->update($request->all());
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $lokasi->nama"
+        ]);
+        return redirect()->route('lokasi.index');
+
     }
 
     /**
@@ -166,6 +186,12 @@ class LokasiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lokasi = Tempat::find($id);
+        $lokasi->delete();
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Detail Lokasi berhasil dihapus"
+        ]);
+        return redirect()->route('lokasi.index');
     }
 }

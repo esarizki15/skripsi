@@ -7,17 +7,17 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('perusahaan.index') }}">Perusahaan</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Alamat Perusahaan</li>
+                <li class="breadcrumb-item"><a href="{{ route('area.index') }}">Area</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ubah Area</li>
               </ol>
             </nav>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2 class="panel-title">{{ __('Tambah Perusahaan') }}</h2></div>
+                    <h2 class="panel-title">{{ __('Ubah Detail Area') }}</h2></div>
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('perusahaan.store'),
-                        'method' => 'post', 'files'=>'true',  'class'=>'form-horizontal']) !!}
-                            @include('perusahaan._form')                 
+                        {!! Form::model($area, ['url' => route('area.update', $area->id),
+                        'method' => 'put', 'files'=>'true',  'class'=>'form-horizontal']) !!}
+                            @include('area._form')                 
                         {!! Form::close() !!}
                 </div>
             </div>

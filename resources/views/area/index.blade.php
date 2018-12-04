@@ -32,7 +32,8 @@
                                             {{ $log->perusahaan->nama }}
                                         </td>
                                         <td>{{ $log->nama }}</td>
-                                        <td><a class="btn btn-primary" href="{{ route('area.edit', $log->id) }}">Edit</a></td>
+                                        <td> @include('area.action')
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

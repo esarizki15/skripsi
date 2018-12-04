@@ -33,12 +33,13 @@
                                     <tr>   
                                         <td>
                                             {{ $log->nama }}
-                                        </td>
+                                        </td> 
                                         <td>{{ $log->provinsi }}</td>
                                         <td>{{ $log->kota }}</td>
                                         <td>{{ $log->kecamatan }}</td>
                                         <td>{{ $log->detail }}</td>
-                                        <td><a class="btn btn-primary" href="{{ route('perusahaan.edit', $log->id) }}">Edit</a></td>
+                                        <td> @include('perusahaan.action')
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -66,18 +67,7 @@
 </div>
 @endsection
 @section('before_scripts')
-<script type="text/javascript">
-$(document).ready(function() {
-    Push.create("Hello world!", {
-    body: "How's it hangin'?",
-    icon: '/icon.png',
-    timeout: 4000,
-    onClick: function () {
-        window.focus();
-        this.close();
-    }
-});
-});
-    
-</script>
+    @if (session()->has('flash_notification'))
+        @include('partials._pusher', ['message' => session()->get('flash_notification.message')])
+    @endif
 @endsection

@@ -1,8 +1,8 @@
-<div class="form-group{{ $errors->has('perusahaan') ? ' has-error' : '' }} row">
-	{!! Form::label('perusahaan', 'Pilih Perusahaan', ['class'=>'col-sm-4 control-label']) !!}
+<div class="form-group{{ $errors->has('perusahaan_id') ? ' has-error' : '' }} row">
+	{!! Form::label('perusahaan_id', 'Pilih Perusahaan', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-sm-6"> 
-		{!! Form::select('perusahaan', [''=>'']+App\Perusahaan::pluck('nama','id')->all(),  null, ['class'=>'form-control, js-selectize ','placeholder' => 'Pilih Perusahaan']) !!}
-		{!! $errors->first('perusahaan', '<p class="help-block">:message</p>') !!}
+		{!! Form::select('perusahaan_id', [''=>'']+App\Perusahaan::pluck('nama','id')->all(),  null, ['class'=>'form-control, js-selectize ','placeholder' => 'Pilih Perusahaan']) !!}
+		{!! $errors->first('perusahaan_id', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
   

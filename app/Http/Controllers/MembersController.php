@@ -70,6 +70,19 @@ class MembersController extends Controller
             $user->roles()->attach(Role::find($request->role[$i]));
         }
 
+        if (isset($request->area)) {
+            foreach ($request->area as $area) {
+                $user->tempats()->attach(Tempat::find($area));
+            }
+        }
+
+        if (isset($request->lokasi)) {
+            foreach ($request->lokasi as $lokasi) {
+                $user->tempats()->attach(Tempat::find($lokasi));
+            }
+        }
+
+
         return redirect()->route('member.index');
     }
 
@@ -92,7 +105,8 @@ class MembersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $member = User::find($id);
+        return view('members.edit')->with(compact('member'));
     }
 
     /**
@@ -115,6 +129,13 @@ class MembersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $member = User::find($id);
+        $member->delete();
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Detail member berhasil dihapus"
+        ]);
+        return redirect()->route('member.index');
+
     }
 }

@@ -60,4 +60,28 @@ class User extends Authenticatable
         }
         return $str;
     }
+
+    public function formattedTempats()
+    {
+        $batas = $this->tempats->count();
+        $status = 0;
+        $str = '';
+        foreach ($this->tempats as $tempat) {
+            $status++;
+            $str = $str . $tempat->nama;
+            if ($batas != $status) {
+                $str = $str . ", ";
+            }
+        }
+
+        if ($str == '') {
+            return 'Bukan Penganggung Jawab';
+        }
+        return $str;
+    }
+
+    public function tempats()
+    {
+        return $this->belongsToMany('App\Tempat');
+    }
 }

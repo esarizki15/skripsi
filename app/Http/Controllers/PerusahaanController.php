@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Perusahaan;
+use Session;
 class PerusahaanController extends Controller
 {
     /**
@@ -51,7 +52,10 @@ class PerusahaanController extends Controller
             'detail' => $request->detail,
         ]) ;
 
-
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $perusahaan->nama"
+        ]);
         return redirect()->route('perusahaan.index');
     }
 
@@ -74,7 +78,8 @@ class PerusahaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $perusahaan = Perusahaan::find($id);
+        return view('perusahaan.edit')->with(compact('perusahaan'));
     }
 
     /**
@@ -86,7 +91,20 @@ class PerusahaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'required|unique:perusahaans,nama,'. $id,
+            'provinsi' => 'required',
+            'kota' => 'required',
+            'kecamatan' => 'required',
+            'detail' => 'required',
+    ]);
+        $perusahaan = Perusahaan::find($id);
+        $perusahaan->update($request->all());
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $perusahaan->nama"
+        ]);
+        return redirect()->route('perusahaan.index');
     }
 
     /**
@@ -97,6 +115,11 @@ class PerusahaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Perusahaan::destroy($id)) return redirect()->back();
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Detail perusahaan berhasil dihapus"
+        ]);
+        return redirect()->route('perusahaan.index');
     }
 }

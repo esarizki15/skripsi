@@ -30,6 +30,7 @@
                                     <td>Jabatan</td>
                                     <td>Role</td>
                                     <td>Tempat</td>
+                                    <td>Action</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,34 +39,8 @@
                                         <td>{{ $log->name }}</td>
                                         <td>{{ $log->jabatan }}</td>
                                         <td>{{ $log->formattedRoles() }}</td>
-                                        <td>
-                                            @php
-                                                $show = false;
-                                                $str = "";  
-                                            @endphp
-
-                                            @foreach ($log->roles as $role)
-                                                @foreach ($role->tempats as $tempat)
-                                                @php
-                                                    $str = $str . $tempat->nama . ", ";
-                                                @endphp
-                                                @endforeach
-                                                @php
-                                                    if ($role->tempats->count() != 0) {
-                                                        $show = true;
-                                                     }
-                                                @endphp
-                                            @endforeach
-                                            {{ substr($str, 0, -2) }}
-                                            @if (!$show)
-                                                {{ "Bukan Penanggung Jawab" }}
-                                            @endif
-
-                                            @php
-                                                $show = false;
-                                                $str = "";
-                                            @endphp
-                                        </td>
+                                        <td>{{ $log->formattedTempats() }}</td>
+                                        <td>@include('area.action')</td>
                                     </tr>
                                 @empty
                                     <tr>

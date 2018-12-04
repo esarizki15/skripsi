@@ -6,3 +6,7 @@ $(document).ready(function () {
 	maxItems: 2
 	});
 });
+
+$(".delete").on("submit", function(){
+        return confirm("Apakah kamu ingin menghapus data ini?");
+    });

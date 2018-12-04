@@ -44,7 +44,7 @@
 
 <div class="form-group row mb-0">
 	<div class="col-md-6 col-md-offset-4">
-	{!! Form::submit('Tambah', ['class'=>'btn btn-primary']) !!}
+	{!! Form::submit('Simpan', ['class'=>'btn btn-primary']) !!}
 	</div>
 </div>
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Area;
 use App\Tempat;
 use App\Perusahaan;
+use Session;
 class AreaController extends Controller
 {
     /**
@@ -39,15 +40,20 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'perusahaan' => 'required|exists:perusahaans,id',
+            'perusahaan_id' => 'required|exists:perusahaans,id',
             'nama' => 'required|unique:areas',
         ]);
 
 
         $area = Tempat::create([
-            'perusahaan_id' => $request->perusahaan,
+            'perusahaan_id' => $request->perusahaan_id,
             'nama' => $request->nama,
         ]) ;
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $area->nama"
+        ]);
 
         return redirect()->route('area.index');
     }
@@ -71,7 +77,8 @@ class AreaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $area = Tempat::find($id);
+        return view('area.edit')->with(compact('area'));
     }
 
     /**
@@ -83,7 +90,20 @@ class AreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'perusahaan_id' => 'required|exists:perusahaans,id',
+            'nama' => 'required|unique:areas',
+        ]);
+
+
+        $area = Tempat::find($id);
+        $area->update($request->all());
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $area->nama"
+        ]);
+        return redirect()->route('area.index');
+
     }
 
     /**
@@ -94,6 +114,11 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Tempat::destroy($id)) return redirect()->back();
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Detail Area berhasil dihapus"
+        ]);
+        return redirect()->route('area.index');
     }
 }
