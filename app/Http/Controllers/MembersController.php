@@ -8,6 +8,7 @@ use App\RoleUser;
 use App\User;
 use App\Role;
 use DB;
+use Session;
 class MembersController extends Controller
 {
     /**

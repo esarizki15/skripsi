@@ -25,3 +25,17 @@
 	</div>
 </div>
 @endsection
+
+@push('after_scripts')
+	<script defer type="text/javascript">
+		console.log('Test');
+		$('.selectize-input.items.not-full.has-options').html();
+		$('#role-selectized').remove();
+	</script>
+@foreach ($member->roles as $role)
+<script defer type="text/javascript">
+	$('.selectize-input.items.not-full.has-options.has-items')
+		.prepend('<div class="item" data-value="' + '{{ $role->id }}' + '">' + '{{ $role->name }}' + '</div>');
+</script>
+@endforeach
+@endpush
