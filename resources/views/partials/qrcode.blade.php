@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-3 col-md-offset-3">
                 @php
-                    QRCode::url(route('laporan.create') . "?lokasi=" . $object->id)->setSize(7)->svg();
+                    QRCode::url(route('pengaduan.create') . "?lokasi=" . $object->id)->setSize(7)->svg();
                 @endphp
             </div>
         </div>

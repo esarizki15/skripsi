@@ -1,3 +1,6 @@
+@if ($errors)
+	{{ $errors }}
+@endif
 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 	{!! Form::label('name', 'Nama', ['class'=>'col-md-4 control-label']) !!}
 	<div class="col-md-6">
@@ -25,8 +28,19 @@
 <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }} row">
 	{!! Form::label('role', 'Role', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-md-6">
+		@if (Request::route()->getName() != 'member.edit')
 		{!! Form::select('role[]', [''=>'']+App\Role::pluck('nama','id')->all(), null,['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Role', 'multiple'=>'multiple', 'id'=>'role']) !!}
 		{!! $errors->first('role', '<p class="help-block">:message</p>') !!}
+		@else
+		@php
+			$default = [];
+			foreach ($member->roles as $role) {
+				array_push($default, $role->id);
+			}
+		@endphp
+		{!! Form::select('role[]', [''=>'']+App\Role::pluck('nama','id')->all(), $default,['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Role', 'multiple'=>'multiple', 'id'=>'role']) !!}
+		{!! $errors->first('role', '<p class="help-block">:message</p>') !!}
+		@endif
 	</div>
 </div>
 
@@ -34,16 +48,39 @@
 <div id="lokasi" class="hidden form-group{{ $errors->has('lokasi') ? ' has-error' : '' }} row">
 	{!! Form::label('lokasi', 'Tanggung Jawab Lokasi', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::select('lokasi[]', [''=>'']+App\Tempat::where('tempat_id', '!=', null)->pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Lokasi']) !!}
+		@if (Request::route()->getName() != 'member.edit')
+		{!! Form::select('lokasi[]', [''=>'']+App\Tempat::whereNull('tempat_id')->pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Lokasi']) !!}
 		{!! $errors->first('lokasi', '<p class="help-block">:message</p>') !!}
+		@else
+		@php
+			$default = [];
+			foreach ($member->tempats as $tempat) {
+				array_push($default, $tempat->id);
+			}
+		@endphp
+		{!! Form::select('lokasi[]', [''=>'']+App\Tempat::where('tempat_id', '!=', null)->pluck('nama','id')->all(), $default,['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Lokasi', 'multiple'=>'multiple', 'id'=>'lokasi']) !!}
+		{!! $errors->first('lokasi', '<p class="help-block">:message</p>') !!}
+		@endif
+
 	</div>
 </div>
 
 <div id="area" class="hidden form-group{{ $errors->has('area') ? ' has-error' : '' }} row">
 	{!! Form::label('area', 'Tanggung Jawab Area', ['class'=>'col-sm-4 control-label']) !!}
 	<div class="col-md-6">
+		@if (Request::route()->getName() != 'member.edit')
 		{!! Form::select('area[]', [''=>'']+App\Tempat::whereNull('tempat_id')->pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Area']) !!}
 		{!! $errors->first('area', '<p class="help-block">:message</p>') !!}
+		@else
+		@php
+			$default = [];
+			foreach ($member->tempats as $tempat) {
+				array_push($default, $tempat->id);
+			}
+		@endphp
+		{!! Form::select('area[]', [''=>'']+App\Tempat::whereNull('tempat_id')->pluck('nama','id')->all(), $default,['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Area', 'multiple'=>'multiple', 'id'=>'area']) !!}
+		{!! $errors->first('area', '<p class="help-block">:message</p>') !!}
+		@endif
 	</div>
 </div>
 
@@ -71,3 +108,42 @@
 		{!! Form::submit('Simpan', ['class'=>'btn btn-primary']) !!}
 	</div>
 </div>
+
+@section('before_scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+
+      $( "#role" ).change(function () {
+
+	    var str = [];
+	    $( "#role option:selected" ).each(function() {
+	      str += $( this ).text();
+
+	      if (str.includes("Petugas 5R")) {
+	    	
+	    $("#lokasi").removeClass("hidden").fadeIn();
+	    }else {
+	    	$("#lokasi").hide();
+	    }
+
+
+	    if (str.includes("Pengawas 5R")) {
+	    	
+	    $("#area").removeClass("hidden").fadeIn();
+	    }else{
+	    	$("#area").hide();
+	    }
+
+	      console.log(str)
+	    });
+
+	    
+	  })
+	  .change();
+
+
+
+
+});
+</script>
+@endsection

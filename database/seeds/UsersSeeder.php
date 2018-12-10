@@ -90,7 +90,6 @@ class UsersSeeder extends Seeder
         $user->jabatan = 'Direktur';
         $user->save();
 
-        $user->tempats()->attach(Tempat::find(rand(1,2)));
 
         $user1 = new User();
         $user1->name = 'Esa';
@@ -98,8 +97,8 @@ class UsersSeeder extends Seeder
         $user1->password = bcrypt('rahasia');
         $user1->jabatan = 'Manager' ;
         $user1->save();
-        $user1->tempats()->attach(Tempat::find(rand(1,2)));
-        $user1->tempats()->attach(Tempat::find(rand(3,4)));
+        $user1->tempats()->attach(Tempat::find(1));
+        $user1->tempats()->attach(Tempat::find(3));
 
         $user2 = new User();
         $user2->name = 'Rizki';
@@ -107,8 +106,7 @@ class UsersSeeder extends Seeder
         $user2->password = bcrypt('rahasia');
         $user2->jabatan = 'Karyawan' ;
         $user2->save();
-        $user2->tempats()->attach(Tempat::find(rand(1,2)));
-        $user2->tempats()->attach(Tempat::find(rand(3,4)));
+        $user2->tempats()->attach(Tempat::find(2));
 
         $roleuser = RoleUser::create([
             'user_id'=>$user->id,
@@ -127,7 +125,7 @@ class UsersSeeder extends Seeder
 
         $roleuser = RoleUser::create([
             'user_id'=>$user2->id,
-            'role_id'=>$role5->id
+            'role_id'=>$role4->id
         ]);
     }
 }

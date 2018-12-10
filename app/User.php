@@ -46,16 +46,27 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
-    public function formattedRoles()
+    public function formattedRoles($space = true)
     {
         $batas = $this->roles->count();
         $status = 0;
         $str = '';
-        foreach ($this->roles as $role) {
-            $status++;
-            $str = $str . $role->nama;
-            if ($batas != $status) {
-                $str = $str . ", ";
+
+        if ($space) {
+            foreach ($this->roles as $role) {
+                $status++;
+                $str = $str . $role->nama;
+                if ($batas != $status) {
+                    $str = $str . ", ";
+                }
+            }
+        } else {
+            foreach ($this->roles as $role) {
+                $status++;
+                $str = $str . $role->nama;
+                if ($batas != $status) {
+                    $str = $str . ",";
+                }
             }
         }
         return $str;

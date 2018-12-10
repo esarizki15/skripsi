@@ -11,7 +11,7 @@
 <li class="treeview">
     <a href="#"><i class='fa fa-link'></i> <span>{{ trans('Pengaduan') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
-        <li><a href="{{ route('laporan.index') }}"><i class='fa fa-link'></i> <span>{{ trans('Pengaduan') }}</span></a></li>
+        <li><a href="{{ route('pengaduan.index') }}"><i class='fa fa-link'></i> <span>{{ trans('Pengaduan') }}</span></a></li>
         <li><a href="{{ route('penanganan.index') }}"><i class='fa fa-link'></i> <span>{{ trans('Penanganan') }}</span></a></li>
         <li><a href="{{ route('pengajuan.index') }}"><i class='fa fa-link'></i> <span>{{ trans('Pengajuan') }}</span></a></li>
 

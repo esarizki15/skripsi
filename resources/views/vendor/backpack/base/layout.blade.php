@@ -42,7 +42,7 @@
 
     <link href="{{ asset('css/chosen.min.css') }}" rel="stylesheet">
       
-      
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
     <!-- BackPack Base CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/backpack/backpack.base.css') }}?v=2">

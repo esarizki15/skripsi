@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pengaduan;
 use App\Keyword;
-use App\Lokasi;
 use App\Penanganan;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+
 class LaporanController extends Controller
 {
     /**
@@ -18,7 +17,7 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        $pengaduan = Pengaduan::all();
+        $pengaduan = Pengaduan::with('users')->paginate(8);
         return view('laporan.index')->with(compact('pengaduan'));
     }
 
@@ -27,12 +26,8 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        if (isset($request->lokasi)) {
-            $lokasi = Lokasi::find($request->lokasi);            
-            return view('laporan.create', compact('lokasi'));
-        }
         return view('laporan.create');
     }
 
@@ -45,21 +40,16 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'lokasi' => 'required',
+            'nama_ruangan' => 'required',
             'pengaduan' => 'required',
             'foto' => 'image|max:2048',
             'deskripsi' => 'required',
         ]);
 
         $pengaduan = Pengaduan::create(array_merge($request->except('foto'), [
-            'user_id' => Auth::id(),
-            'lokasi_id' => $request->lokasi,
-            'pengaduan' => $request->pengaduan,
-            'foto' => $request->foto,
-            'deskripsi' => $request->deskripsi
-        ])) ;
-
-           /* $str = (string)$request->deskripsi;
+            'user_id' => Auth::id()])) ;
+            /*
+            $str = (string)$request->deskripsi;
             $low = strtolower($str);
             $exp = explode(" ", $low);
             for ($i=0; $i < count($exp) ; $i++) { 
@@ -102,13 +92,14 @@ class LaporanController extends Controller
             return redirect()->route('laporan.index');
         }
 
-        public function tangani($laporans)
+        public function tangani($id)
         {
-            $pengaduan = Pengaduan::findOrFail($laporans);
+            $pengaduan = Pengaduan::findOrFail($id);
             $penanganan = Penanganan::create([
-                'user_id' => Auth::id(),
-                'pengaduan_id' => $laporans
+                'user_id' => Auth::user()->id,
+                'pengaduan_id' => $id
             ]);
+
 
             return redirect()->route('penanganan.index');
         }
@@ -121,11 +112,7 @@ class LaporanController extends Controller
      */
     public function show($id)
     {
-        $pengaduan = Pengaduan::find($id);
-        /*$pengadu = $pengaduan->penanganans->pengajuans->find($id);
-        $penga = $pengadu->penyelesaians->find($id);
-        */return view('laporan.show', compact('pengaduan'));
-
+        //
     }
 
     /**

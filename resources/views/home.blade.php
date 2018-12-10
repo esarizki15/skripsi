@@ -1,14 +1,13 @@
-@extends('vendor.backpack.base.layout')
+@extends('layouts.app')
 
 @section('content')
-<div class="container-fluid spark-screen">
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">{{ __('Dashboard') }}</h2></div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

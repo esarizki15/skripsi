@@ -119,7 +119,50 @@ class MembersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => "required|unique:users,name,$id",
+            'jabatan' => 'required',
+            'role'=>'required|exists:roles,id',
+            'email' => "required|unique:users,email,$id",
+        ]);
+
+        $user = User::find($id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'hp'=> $request->phone,
+            'jabatan'=> $request->jabatan,
+        ]) ;
+
+        foreach ($user->roles as $role) {
+            $user->roles()->detach($role);
+        }
+
+        for ($i=0; $i < count($request->role); $i++) {
+            $user->roles()->attach(Role::find($request->role[$i]));
+        }
+
+        foreach ($user->tempats as $tempat) {
+            $user->tempats()->detach($tempat);
+        }
+
+        if (isset($request->area)) {
+            foreach ($request->area as $area) {
+                $user->tempats()->attach(Tempat::find($area));
+            }
+        }
+
+        if (isset($request->lokasi)) {
+            foreach ($request->lokasi as $lokasi) {
+                $user->tempats()->attach(Tempat::find($lokasi));
+            }
+        }
+
+
+        dd('Stop');
+
+        return redirect()->route('member.index');
+
     }
 
     /**

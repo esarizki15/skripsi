@@ -11,22 +11,6 @@
               </ol>
             </nav>
 
-            <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h2 class="box-title">Seleksi</h2>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fa fa-minus"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                                <i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        {{ trans('adminlte_lang::message.logged') }}. Start creating your amazing application!
-                    </div>
-                    <!-- /.box-body -->
-                </div>
 
             <div class="box box-default">
                 <div class="box-header with-border">
@@ -41,18 +25,21 @@
                         </div>
                 </div>
                 <div class="box-body">
-                 <p><a class="btn btn-primary" href="{{ url('laporan/create') }}">Tambah</a></p> 
+                 <p><a class="btn btn-primary" href="{{ route('pengaduan.create') }}">Tambah</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Gabungkan</button>
+                    @include('partials.merge')
+                 </p> 
                    <div class="table-responsive">
-                        <table id="example" class="display nowrap">
+                        <table id="example" class="display responsive nowrap compact">
                             <thead>
                                 <tr>
+                                    
                                     <td>Pelapor</td>
                                     <td>Nama Ruangan</td>
                                     <td>Jenis Pengaduan</td>
                                     <td>Foto</td>
-                                    <td>Keamanan</td>
-                                    <td>Kerugian</td>
                                     <td>Deskripsi</td>
+                                    <td></td>
                                     <td>Action</td>
                                 </tr>
                             </thead>
@@ -60,7 +47,7 @@
                                 @forelse ($pengaduan as $log)
                                     <tr>
                                         
-                                        <td><a href="{{ route('laporan.show', $log->id) }}">
+                                        <td><a href="{{ route('pengaduan.show', $log->id) }}">
                                             {{ $log->users['name'] }}
                                             @foreach($log->keywords as $key)
                                                 @if($key->pengaduans->count() > 1)
@@ -76,16 +63,10 @@
                                         @else
                                         <td>Foto belum di upload</td>
                                         @endif
-                                        @if ($log->keamanan == 1)
-                                        <td>Ada</td>
-                                        @else
-                                        <td>Tidak ada</td>           
-                                        @endif
-                                        <td>{{ $log->resiko2 }}</td>
                                         <td>{{ $log->deskripsi }}</td>
-
+                                        <td><input type="checkbox" name="duplikat" value="1"></td>
                                         @if(!isset( $log->penanganans ))
-                                        <td><a class="btn btn-primary" href="{{ route('laporan.tangani', $log->id) }}">Tangani</a></td>
+                                        <td><a class="btn btn-primary" href="{{ route('pengaduan.tangani', $log->id) }}">Tangani</a></td>
                                         @else
                                         <td><a class="btn btn-info disabled" href="">Sedang Di Tangani</a></td>
                                         @endif

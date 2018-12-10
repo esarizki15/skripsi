@@ -22,6 +22,11 @@ class Pengaduan extends Model
 	{
 		return $this->belongsTo('App\Tempat', 'lokasi_id');
 	}
+
+	public function duplikats()
+	{
+		return $this->belongsToMany('App\Duplikat');
+	}
 	
 	public function penanganans()
 	{

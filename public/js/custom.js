@@ -5,8 +5,10 @@ $(document).ready(function () {
 	sortField: 'text',
 	maxItems: 2
 	});
+
+	$(".delete").on("submit", function(){
+        return confirm("Apakah anda yakin?");
+    });
+
 });
 
-$(".delete").on("submit", function(){
-        return confirm("Apakah kamu ingin menghapus data ini?");
-    });

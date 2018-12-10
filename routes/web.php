@@ -20,10 +20,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('area', 'AreaController');
 	Route::resource('lokasi', 'LokasiController');
 	Route::resource('member', 'MembersController');
-	Route::resource('laporan', 'LaporanController');
-	Route::get('/laporans/{laporans}/tangani',[
-			'as' => 'laporan.tangani',
-			'uses' => 'LaporanController@tangani'
+	Route::resource('pengaduan', 'PengaduanController');
+	Route::get('/pengaduans/{pengaduans}/tangani',[
+			'as' => 'pengaduan.tangani',
+			'uses' => 'PengaduanController@tangani'
 		]);
 	Route::get('/lokasi/{id}/qrcode',[
 			'as' => 'lokasi.qrcode',
