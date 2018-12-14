@@ -40,7 +40,7 @@
                                         <td>{{ $log->jabatan }}</td>
                                         <td>{{ $log->formattedRoles() }}</td>
                                         <td>{{ $log->formattedTempats() }}</td>
-                                        <td>@include('area.action')</td>
+                                        <td>@include('members.action')</td>
                                     </tr>
                                 @empty
                                     <tr>

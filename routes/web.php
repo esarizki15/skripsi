@@ -29,6 +29,17 @@ Route::group(['middleware' => 'auth'], function () {
 			'as' => 'lokasi.qrcode',
 			'uses' => 'QRCodeController@lokasi'
 		]);
+
+	Route::post('/pengaduans/gabungkan',[
+			'as' => 'pengaduan.gabungkan',
+			'uses' => 'PengaduanController@merge'
+		]);
+
+	Route::post('/pengaduans/merges',[
+			'as' => 'pengaduan.merges',
+			'uses' => 'PengaduanController@merges'
+		]);
+
 	Route::resource('penanganan', 'PenangananController');
 	Route::get('/penanganans/{penanganans}/ajukan',[
 			'as' => 'penanganan.ajukan',

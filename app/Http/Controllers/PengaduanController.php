@@ -7,10 +7,11 @@ use App\Pengaduan;
 use App\Keyword;
 use App\Lokasi;
 use App\Tempat;
+use App\Duplikat;
 use App\Penanganan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
+use Session;
 class PengaduanController extends Controller
 {
     /**
@@ -20,7 +21,9 @@ class PengaduanController extends Controller
      */
     public function index()
     {
+        
         $pengaduan = Pengaduan::all();
+
         return view('pengaduan.index')->with(compact('pengaduan'));
     }
 
@@ -103,6 +106,41 @@ class PengaduanController extends Controller
             
             return redirect()->route('pengaduan.index');
         }
+
+        public function merge(Request $request)
+        {
+            if (isset($request->duplikat)) {
+            $pengaduan = Pengaduan::find($request->duplikat);        
+            return view('pengaduan.merge', compact('pengaduan'));
+        }
+
+            return view('pengaduan.merge');
+        }
+
+        public function merges(Request $request)
+        {
+            $this->validate($request, [
+            'nama' => 'required|unique:duplikats',
+            'duplikat' => 'required'
+            ]);
+
+        $duplikat = Duplikat::create([
+            'nama' => $request->nama,
+        ]) ;
+
+        for ($i=0; $i < count($request->duplikat); $i++) { 
+            $duplikat->pengaduans()->attach(Pengaduan::find($request->duplikat[$i]));
+        };
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menggabungkan pengaduan"
+        ]);
+
+
+            return redirect()->route('pengaduan.index');
+        }
+
 
         public function tangani($pengaduans)
         {

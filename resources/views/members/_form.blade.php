@@ -1,6 +1,7 @@
 @if ($errors)
 	{{ $errors }}
 @endif
+
 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 	{!! Form::label('name', 'Nama', ['class'=>'col-md-4 control-label']) !!}
 	<div class="col-md-6">
@@ -17,11 +18,11 @@
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-	{!! Form::label('phone', 'Nomor HP', ['class'=>'col-md-4 control-label']) !!}
+<div class="form-group{{ $errors->has('hp') ? ' has-error' : '' }}">
+	{!! Form::label('hp', 'Nomor HP', ['class'=>'col-md-4 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::text('phone', null, ['class'=>'form-control']) !!}
-		{!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+		{!! Form::text('hp', null, ['class'=>'form-control']) !!}
+		{!! $errors->first('hp', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 

@@ -63,7 +63,7 @@ class MembersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password'=> $request->password,
-            'hp'=> $request->phone,
+            'hp'=> $request->hp,
             'jabatan'=> $request->jabatan,
         ]) ;
 
@@ -82,7 +82,10 @@ class MembersController extends Controller
                 $user->tempats()->attach(Tempat::find($lokasi));
             }
         }
-
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $user->name"
+        ]);
 
         return redirect()->route('member.index');
     }
@@ -158,8 +161,10 @@ class MembersController extends Controller
             }
         }
 
-
-        dd('Stop');
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $user->name"
+        ]);
 
         return redirect()->route('member.index');
 

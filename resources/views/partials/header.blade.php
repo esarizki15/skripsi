@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
         
-        {!! Form::open(['url' => route('pengaduan.store'), 'method' => 'post', 'files'=>'true',  'class'=>'form-horizontal']) !!}
+        {!! Form::open(['url' => route('pengaduan.gabungkan'), 'method' => 'post', 'files'=>'true',  'class'=>'form-horizontal']) !!}
           
           <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }} row">
           {!! Form::label('title', 'Judul', ['class'=>'col-sm-4 control-label']) !!}
@@ -19,11 +19,13 @@
             {!! $errors->first('judul', '<p class="help-block">:message</p>') !!}
           </div>
         </div> 
-
-        {!! Form::close() !!}
+        <input type="hidden" name="duplikat[]" value="">
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        {!! Form::submit('Gabungkan', ['class'=>'btn btn-primary']) !!}
+        {!! Form::close() !!}
       </div>
     </div>
 

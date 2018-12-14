@@ -25,9 +25,8 @@
                         </div>
                 </div>
                 <div class="box-body">
-                 <p><a class="btn btn-primary" href="{{ route('pengaduan.create') }}">Tambah</a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Gabungkan</button>
-                    @include('partials.merge')
+                 <p>
+                    @include('partials.open')
                  </p> 
                    <div class="table-responsive">
                         <table id="example" class="display responsive nowrap compact">
@@ -63,12 +62,19 @@
                                         @else
                                         <td>Foto belum di upload</td>
                                         @endif
-                                        <td>{{ $log->deskripsi }}</td>
-                                        <td><input type="checkbox" name="duplikat" value="1"></td>
+                                        <td>{{ str_limit($log->deskripsi, $limit = 8, '...') }}</td>
+                                        <td>
+                                        
+                                        <input type="checkbox" id="duplikat" name="duplikat[]" value="{{ $log->id }}">
+                                        
+                                        </td>
+
+                                        @include('partials.close')
                                         @if(!isset( $log->penanganans ))
-                                        <td><a class="btn btn-primary" href="{{ route('pengaduan.tangani', $log->id) }}">Tangani</a></td>
+                                        <td>
+    <a class="btn btn-primary btn-xs" href="{{ route('pengaduan.tangani', $log->id) }}">Tangani</a>@include('pengaduan.action')</td>
                                         @else
-                                        <td><a class="btn btn-info disabled" href="">Sedang Di Tangani</a></td>
+                                        <td><a class="btn btn-info btn-xs disabled" href="">Sedang Di Tangani</a></td>
                                         @endif
                                         
                                     </tr>
@@ -80,9 +86,13 @@
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('after_scripts')
+    
 @endsection
