@@ -7,6 +7,7 @@ use App\Role;
 use App\RoleUser;
 use App\Perusahaan;
 use App\Tempat;
+use App\Pengaduan;
 class UsersSeeder extends Seeder
 {
     /**
@@ -127,5 +128,7 @@ class UsersSeeder extends Seeder
             'user_id'=>$user2->id,
             'role_id'=>$role4->id
         ]);
+
+        
     }
 }

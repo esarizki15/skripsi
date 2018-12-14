@@ -23,8 +23,8 @@ class PengaduanController extends Controller
     {
         
         $pengaduan = Pengaduan::all();
-
-        return view('pengaduan.index')->with(compact('pengaduan'));
+        $duplikats = Duplikat::all();
+        return view('pengaduan.index')->with(compact('pengaduan', 'duplikats'));
     }
 
     /**
@@ -110,35 +110,61 @@ class PengaduanController extends Controller
         public function merge(Request $request)
         {
             if (isset($request->duplikat)) {
-            $pengaduan = Pengaduan::find($request->duplikat);        
-            return view('pengaduan.merge', compact('pengaduan'));
-        }
+                $pengaduan = Pengaduan::find($request->duplikat);        
+                if (isset($request->sudah_ada)) {
+                    $sudah_ada = true;
+                    return view('pengaduan.merge', compact('pengaduan', 'sudah_ada'));
+                }
+                return view('pengaduan.merge', compact('pengaduan'));
+            }
 
             return view('pengaduan.merge');
         }
 
+
+        public function mergeupdate(Request $request)
+        {
+            return view('pengaduan.merge');
+        }        
+
+
         public function merges(Request $request)
         {
-            $this->validate($request, [
-            'nama' => 'required|unique:duplikats',
-            'duplikat' => 'required'
-            ]);
+            if (isset($request->duplicate_id)) {
+                for ($i=0; $i < count($request->duplikat); $i++) { 
+                    $duplikat = Duplikat::find($request->duplicate_id);
+                    $duplikat->pengaduans()->attach(Pengaduan::find($request->duplikat[$i]));
+                };
 
-        $duplikat = Duplikat::create([
-            'nama' => $request->nama,
-        ]) ;
+                Session::flash("flash_notification", [
+                    "level"=>"success",
+                    "message"=>"Berhasil menggabungkan pengaduan"
+                ]);                
+            } else {
 
-        for ($i=0; $i < count($request->duplikat); $i++) { 
-            $duplikat->pengaduans()->attach(Pengaduan::find($request->duplikat[$i]));
-        };
+                $duplikat = Duplikat::create([
+                    'nama' => $request->nama,
+                ]) ;
 
-        Session::flash("flash_notification", [
-            "level"=>"success",
-            "message"=>"Berhasil menggabungkan pengaduan"
-        ]);
+                for ($i=0; $i < count($request->duplikat); $i++) { 
+                    $duplikat->pengaduans()->attach(Pengaduan::find($request->duplikat[$i]));
+                };
+
+                Session::flash("flash_notification", [
+                    "level"=>"success",
+                    "message"=>"Berhasil menggabungkan pengaduan"
+                ]);
+
+            }
+
 
 
             return redirect()->route('pengaduan.index');
+        }
+
+        public function exists(Request $request)
+        {
+            return view('pengaduan.merge');
         }
 
 

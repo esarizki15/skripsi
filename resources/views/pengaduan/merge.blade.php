@@ -17,13 +17,23 @@
 
                 <div class="panel-body">
                     {!! Form::open(['url' => route('pengaduan.merges'),
-                    'method' => 'post', 'files'=>'true',  'class'=>'form-horizontal']) !!}
+                    'method' => 'post', 'class'=>'form-horizontal']) !!}
+                    @if (isset($sudah_ada))
+                        <div class="form-group{{ $errors->has('ada') ? ' has-error' : '' }} row">
+                        {!! Form::label('ada', 'Pilih', ['class'=>'col-sm-4 control-label']) !!}
+                        <div class="col-md-6"> 
+                            {!! Form::select('duplicate_id', [''=>'']+App\Duplikat::pluck('nama','id')->all(), null, ['class'=>'form-control col-form-label js-selectize','placeholder' => 'Pilih Pengaduan']) !!}
+                            {!! $errors->first('ada', '<p class="help-block">:message</p>') !!}
+                        </div>
+                    </div>
+                    @else
                         <div class="form-group{{ $errors->has('nama') ? ' has-error' : '' }} row">
                         {!! Form::label('nama', 'Deskripsi', ['class'=>'col-sm-4 control-label']) !!}
                         <div class="col-md-6">
                             {!! Form::text('nama',null, ['class'=>'form-control']) !!}
                             {!! $errors->first('nama', '<p class="help-block">:message</p>') !!}
                         </div>
+                    @endif
                         @foreach($pengaduan as $log)
                         <input type="hidden" name="duplikat[]" value="{{ $log->id }}">
                         @endforeach
